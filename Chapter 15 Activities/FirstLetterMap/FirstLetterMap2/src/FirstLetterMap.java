@@ -12,13 +12,13 @@ public class FirstLetterMap
 {
     public static void main(String[] args)
     {
-        String filename = "src/test1.txt";
+        String filename = "Chapter 15 Activities/FirstLetterMap2/src/test1.txt";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
 
             // Create your map here
-            ...
+            Map<Character, HashSet<String>> map = new TreeMap<>();
 
             while (in.hasNext())
             {
@@ -27,9 +27,7 @@ public class FirstLetterMap
 
                 // Update the map here
                 // Modify Worked Example 15.1
-                . . .
-
-
+                HashSet<String> oldHS = map.get(c);
             }
 
             // Print the map here in this form
