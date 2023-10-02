@@ -27,7 +27,7 @@ public class FirstLetterMap
 
                 // Update the map here
                 // Use the Java 8 merge method
-                map.merge(c, 1, (oldSet, notPresentSet) -> oldSet.addAll(notPresentSet));
+                map.merge(c, new HashSet<>(Arrays.asList(word)), (oldSet, notPresentSet) -> {oldSet.addAll(notPresentSet); return oldSet;});
 
             }
 
