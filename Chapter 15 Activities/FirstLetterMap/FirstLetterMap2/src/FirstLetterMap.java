@@ -28,6 +28,10 @@ public class FirstLetterMap
                 // Update the map here
                 // Modify Worked Example 15.1
                 HashSet<String> oldHS = map.get(c);
+                if (oldHS == null)
+                    oldHS = new HashSet<String>();
+                oldHS.add(word);
+                map.put(c, oldHS);
             }
 
             // Print the map here in this form
