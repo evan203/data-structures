@@ -10,5 +10,12 @@ public class PriorityQueueDemo
 {
     public static void main(String[] args)
     {
+        Queue<WorkOrder> todo = new PriorityQueue<>();
+        todo.add(new WorkOrder(3, "Water plants"));
+        todo.add(new WorkOrder(2, "Make dinner"));
+        todo.add(new WorkOrder(4, "Get my money up"));
+        System.out.println(todo);
+
+
     }
 }
