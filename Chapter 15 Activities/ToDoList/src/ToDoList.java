@@ -60,7 +60,10 @@ public class ToDoList
     public void addTask(String optionStr)
     {
         // Complete this method
-        toDo.add(new Task(Character.getNumericValue(optionStr.charAt(4)), optionStr.substring(5)));
+        if (Character.isDigit(optionStr.charAt(4)))     
+            toDo.add(new Task(Character.getNumericValue(optionStr.charAt(4)), optionStr.substring(5)));
+        else
+            System.out.println("The priority must be an integer between 1 and 9.");
             
     }
 
