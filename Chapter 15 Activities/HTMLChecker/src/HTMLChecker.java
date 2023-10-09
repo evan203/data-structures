@@ -17,12 +17,28 @@ public class HTMLChecker
 {
     public static void main(String[] args)
     {
-        String filename = "src/TagSample1.html";
+        String filename = "Chapter 15 Activities/HTMLChecker/src/TagSample2.html";
 
         try (Scanner in = new Scanner(new File(filename)))
         {
             // Your code goes here
-            S
+            in.useDelimiter(" ");
+            Stack<String> tags = new Stack<>();
+            while (in.hasNext())
+            {
+                String tag = in.next();
+                tag = tag.substring(1, tag.indexOf(">"));
+                if (tag.charAt(0) == '/' )
+                {
+                    if (tags.peek().equals(tag.substring(1)))
+                        tags.pop();
+                    else
+                        System.out.println("HTML tag improperly formatted: "+tag);
+                }
+                else
+                    tags.push(tag);
+            }
+
 
         } catch (FileNotFoundException e)
         {
