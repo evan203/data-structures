@@ -52,6 +52,10 @@ public class LinkedList
         Returns an iterator for iterating through this list.
         @return an iterator for iterating through this list
     */
+    public ListIterator listIterator()
+    {
+        return new LinkedListIterator();
+    }
     //Class Node
     static class Node
     {
@@ -68,7 +72,7 @@ public class LinkedList
 
         public LinkedListIterator()
         {
-            current = null;
+            current = null; // start "before" the first element
             prev = null;
             isAfterNext = false;
         }
@@ -78,14 +82,28 @@ public class LinkedList
          * 
          * @return the traversed element
          */
-        Object next();
+        public Object next()
+        {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            prev = current;
+            isAfterNext = true;
+            if (current == null)
+                current = first;
+            else
+                current = current.next;
+            return current.data;
+        }
 
         /**
          * Tests if there is an element after the iterator position.
          * 
          * @return true if there is an element after the iterator position
          */
-        boolean hasNext();
+        public boolean hasNext()
+        {
+            return current == null ? first != null : current.next != null; // if at beginning and first isn't null, else if current.next isnt null
+        }
 
         /**
          * Adds an element before the iterator position
@@ -93,19 +111,59 @@ public class LinkedList
          * 
          * @param element the element to add
          */
-        void add(Object element);
+        public void add(Object element)
+        {
+            if (current == null)
+            {
+                addFirst(element);
+                current = first;
+            }
+            else
+            {
+                // create new node and set up data
+                Node n = new Node();
+                n.data = element;
+                // the new node is going in between current and current.next
+                n.next = current.next;
+                // old current node's next is goingn to equal the new node
+                current.next = n;
+                // make the current reference the new node finally
+                current = n;
+            }
+            isAfterNext = false;
+        }
 
         /**
          * Removes the last traversed element. This method may
          * only be called after a call to the next() method.
          */
-        void remove();
+        public void remove()
+        {
+            if (!isAfterNext)
+                throw new IllegalStateException(); // trying to remove but next wasn't called
+            if (current == first)
+            {
+                removeFirst();
+                current = null;
+            }
+            else 
+            {
+                prev.next = current.next; // current is getting removed
+                current = prev; // the iterator is going backwards
+            }
+            isAfterNext = false;
+        }
 
         /**
          * Sets the last traversed element to a different value.
          * 
          * @param element the element to set
          */
-        void set(Object element);
+        public void set(Object element)
+        {
+            if (!isAfterNext)
+                throw new IllegalStateException();
+            current.data = element;
+        }
   }// LinkedListIterator
 }//LinkedList
