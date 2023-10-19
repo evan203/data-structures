@@ -30,9 +30,19 @@ public class LinkedList
                 n = n.next;
             }
         }
-
         return c;
     }
+
+    private static Boolean contains(Object obj, Node n)
+    {
+        if (n == null) return false;
+        return obj.equals(n.data) || LinkedList.contains(obj, n.next);
+    }
+    public Boolean recursiveContains (Object obj)
+    {
+        return LinkedList.contains(obj, first);
+    }
+
 
     /**
         Computes the size of the linked list.
