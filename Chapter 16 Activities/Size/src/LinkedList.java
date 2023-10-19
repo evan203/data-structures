@@ -56,6 +56,14 @@ public class LinkedList
             li.next();
         return i;
     }
+    private static int size(int s, Node n)
+    {
+        return n == null ? s : size(s+1, n.next);
+    }
+    public int recursiveSize()
+    {
+        return LinkedList.size(0, first);
+    }
 
     /**
         Returns the first element in the linked list.
