@@ -18,6 +18,22 @@ public class LinkedList
         first = null;
     }
 
+    public Boolean contains(Object obj)
+    {
+        Boolean c = false;
+        if (first != null) // if first element exists
+        {
+            Node n = first;
+            while (!c && n.next != null)
+            {
+                c = obj.equals(n.data);
+                n = n.next;
+            }
+        }
+
+        return c;
+    }
+
     /**
         Computes the size of the linked list.
         @return the number of elements in the list

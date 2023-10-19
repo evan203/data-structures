@@ -30,5 +30,10 @@ public class SizeTester
         System.out.println("Expected: Juliet Emily");
         System.out.println(names.size());
         System.out.println("Expected: 2");
+        System.out.println(names.contains("Juliet"));
+        System.out.println("Expected: true");
+        System.out.println(names.contains("evan"));
+        System.out.println("Expected: false");
+
     }
 }
