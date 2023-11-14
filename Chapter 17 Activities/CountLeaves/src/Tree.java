@@ -63,5 +63,27 @@ public class Tree
         else { return root.size(); }
     }
 
+
+    /** 
+     * Counts the number of leaves in a tree
+     * @return number of leaves
+     */
+    public int leafCount()
+    {
+        return leaf(root);
+    }
+    private int leaf(Node n)
+    {
+        if (n.children.size() == 0)
+            return 1;
+        else
+        {
+            int children = 0;
+            for (Node N : n.children)
+                children += leaf(N);
+            return children;
+        }
+    }
+
     // Additional methods will be added in later sections.
 }
