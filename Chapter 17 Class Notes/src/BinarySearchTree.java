@@ -41,7 +41,7 @@ public class BinarySearchTree
         Node current = this.root;
         while (current != null)
         {
-            int d = obj.compareTo(current.data)
+            int d = obj.compareTo(current.data);
             if (d == 0)
                 return true;
             else if (d < 0)
@@ -93,7 +93,20 @@ public class BinarySearchTree
                 parent.left = newChild;
             else 
                 parent.right = newChild;
+            return;
         }
+        Node leastParent = toBeRemoved;
+        Node least = toBeRemoved.right;
+        while (least.left != null)
+        {
+            leastParent = least;
+            least = least.left;
+        }
+        toBeRemoved.data = least.data;
+        if (leastParent == toBeRemoved)
+            leastParent.right =  least.right;
+        else
+            leastParent.left = least.right;
         
     }
     
@@ -102,7 +115,8 @@ public class BinarySearchTree
     */
     public void print()
     {   
-        
+        print (this.root);
+        System.out.println();
     }   
 
     /**
@@ -111,7 +125,11 @@ public class BinarySearchTree
     */
     private static void print(Node parent)
     {   
-        
+        if (parent == null)
+            return;
+        print(parent.left);
+        System.out.print(parent.data + " ");
+        print(parent.right);
     }
 
     /**
