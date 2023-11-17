@@ -71,9 +71,8 @@ public class MorseCode
      */
     private static void addSymbol(char letter, String code)
     {
-        /*
-            !!! INSERT CODE HERE
-        */
+        codeMap.put(letter, code);
+        treeInsert(letter, code);
     }
 
     /**
@@ -85,9 +84,22 @@ public class MorseCode
      */
     private static void treeInsert(char letter, String code)
     {
-        /*
-            !!! INSERT CODE HERE
-        */
+        // start at root of tree
+        TreeNode n = decodeTree;
+        // traverse tree using each char in the code to go down left/right
+        for (Character c : code.toCharArray())
+        {
+            if (c.equals(DOT)) // left
+                n = n.getLeft();
+            else if (c.equals(DASH)) // right
+                n = n.getRight();
+            if (n == null)
+                n = new TreeNode(' ');
+        }
+        // n is the node in the right posistion, now set value
+        if (!n.getValue().equals(' ')) // in case I made a mistake implementing this, this should help figure out issues
+            System.out.println("Warning: Overwriting node value " + n.getValue() + " with " + letter + " at " + code);
+        n.setValue(letter);
     }
 
     /**
@@ -100,10 +112,9 @@ public class MorseCode
     {
         StringBuffer morse = new StringBuffer(400);
 
-        /*
-            !!! INSERT CODE HERE
-        */
-
+        for (Character c : text.toCharArray())
+            morse.append(codeMap.get(c) + " ");
+        
         return morse.toString();
     }
 
@@ -116,10 +127,26 @@ public class MorseCode
     public static String decode(String morse)
     {
         StringBuffer text = new StringBuffer(100);
-
-        /*
-            !!! INSERT CODE HERE
-        */
+        String s;
+        TreeNode n;
+        while (morse.length() > 0)
+        {
+            s = morse.substring(0, morse.indexOf(' '));
+            n = decodeTree;
+            for (Character c : s.toCharArray())
+            {
+                if (c.equals(DOT))
+                    n = n.getLeft();
+                else if (c.equals(DASH))
+                    n = n.getRight();
+                else
+                    return "error decoding: illegal character in mores code string: " + c;
+            }
+            // n is null sometimes
+            if (n != null)
+                text.append(n.getValue());
+            morse = morse.substring(morse.indexOf(' ') + 1);
+        }
 
         return text.toString();
     }
