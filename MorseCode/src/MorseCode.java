@@ -96,6 +96,7 @@ public class MorseCode
                 n = n.getLeft();
             else if (c.equals(DASH)) // right
                 n = n.getRight();
+            System.out.print(c + " ");
         }
         // n is the node in the right posistion, now set value
         
@@ -103,6 +104,7 @@ public class MorseCode
             n = new TreeNode(letter);
         else
             n.setValue(letter);
+        System.out.println(n.getValue());
     }
 
     /**
@@ -136,11 +138,14 @@ public class MorseCode
     {
         StringBuffer text = new StringBuffer(100);
         TreeNode n = decodeTree;
+        
+        System.out.println("n="+n.getValue()+"."); // this has no error
         for (int i = 0; i < morse.length(); i++)
         {
+
             if (morse.charAt(i) == ' ')
             {
-                text.append(n.getValue());
+                text.append(n.getValue() + " ");
                 n = decodeTree;
             }
             else if (morse.charAt(i) == DOT)
