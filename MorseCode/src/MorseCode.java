@@ -88,23 +88,22 @@ public class MorseCode
         // start at root of tree
         TreeNode n = decodeTree;
         // traverse tree using each char in the code to go down left/right
-        for (Character c : code.toCharArray())
-        {
-            if (n == null)
-                n = new TreeNode(' ');
-            if (c.equals(DOT)) // left
+        for (int i = 0; i < code.length(); i++) {
+            char c = code.charAt(i);
+
+            if (c == DOT) { 
+                if (n.getLeft() == null) {
+                    n.setLeft(new TreeNode(' ', null, null));
+                }
                 n = n.getLeft();
-            else if (c.equals(DASH)) // right
+            } else {
+                if (n.getRight() == null) {
+                    n.setRight(new TreeNode(' ', null, null));
+                }
                 n = n.getRight();
-            System.out.print(c + " ");
+            }
         }
-        // n is the node in the right posistion, now set value
-        
-        if (n == null)
-            n = new TreeNode(letter);
-        else
-            n.setValue(letter);
-        System.out.println(n.getValue());
+        n.setValue(letter);
     }
 
     /**
@@ -138,19 +137,17 @@ public class MorseCode
     {
         StringBuffer text = new StringBuffer(100);
         TreeNode n = decodeTree;
-        
-        System.out.println("n="+n.getValue()+"."); // this has no error
         for (int i = 0; i < morse.length(); i++)
         {
-
-            if (morse.charAt(i) == ' ')
+            Character c = morse.charAt(i);
+            if (c == ' ')
             {
                 text.append(n.getValue() + " ");
                 n = decodeTree;
             }
-            else if (morse.charAt(i) == DOT)
+            else if (c == DOT)
                 n = n.getLeft();
-            else if  (morse.charAt(i) == DASH)
+            else if  (c == DASH)
                 n = n.getRight();
         }
 
